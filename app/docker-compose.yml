@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: mini_app_db
+    environment:
+      POSTGRES_USER: ivan
+      POSTGRES_PASSWORD: mini_app_1712
+      POSTGRES_DB: mini_app_db
+    ports:
+      - "8489:5432"
+    restart: always
+
+  python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    container_name: mini_app_python
+    restart: always
+    ports:
+      - "8020:8020"
+
